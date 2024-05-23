@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/leakhinadb
+    username: leakhina
+    password: leakhina01
+  jpa:
+    properties:
+     hibernate:
+     dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+     ddl-auto: update
+server:
+  port: 8082
