@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 
 public interface BrandService {
 	Brand create(Brand brand);
-	Brand getById(Integer id);
-	Brand update(Integer id,Brand brandUpdated);
+	Brand getById(Long id);
+	Brand update(Long id,Brand brandUpdated);
 	List<Brand>getBrands(); //1
 	List<Brand>getBrands(String name); //2
 	//List<Brand>getBrands(Map<String, String>params);

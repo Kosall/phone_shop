@@ -1,0 +1,18 @@
+databaseChangeLog:
+- changeSet:
+    id: 002_insert_brands
+    author: kosall123nim@gmail.com
+    changes:
+    - loadData:
+        tableName: brands
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: brand_id
+            type: NUMERIC
+        - column:
+            name: brand_name
+            type: VARCHAR(50)
+        file: db/data/0002_brands.csv

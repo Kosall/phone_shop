@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dbnary
+    username: nary02
+    password: nary02
+  jpa:
+    properties:
+     hibernate:
+     dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+     ddl-auto: update
+  mvc:
+   pathmatch:
+        matching-strategy: ant_path_matcher
+  liquibase:
+       change-log:
+          classpath:db/changelog/db_changelog-master.yaml
+       enabled: false
+server:
+  port: 8085
+ 
+     

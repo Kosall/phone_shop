@@ -30,7 +30,7 @@ public class BrandServiceImpl implements BrandService{
 	}
 
 	@Override
-	public Brand getById(Integer id) {
+	public Brand getById(Long id) {
 		/*
 		 * Optional<Brand> optinal = brandRepository.findById(id);
 		 * if(optinal.isPresent()) {
@@ -49,7 +49,7 @@ public class BrandServiceImpl implements BrandService{
 	}
 
 	@Override
-	public Brand update(Integer id,Brand brandUpdated) {
+	public Brand update(Long id,Brand brandUpdated) {
 		Brand brand = getById(id);
 		brand.setName(brandUpdated.getName());
 		return brandRepository.save(brand);

@@ -49,7 +49,7 @@ public class BrandServiceTest {
 		//Given 
 		Brand brand=new Brand();
 		brand.setName("OPPO");
-		brand.setId(1);
+		brand.setId(1L);
 		//When
 		service.create(brand);
 		//Then
@@ -61,10 +61,10 @@ public class BrandServiceTest {
 		//Given
 		Brand brand=new Brand();
 		brand.setName("OPPO");
-		brand.setId(1);
+		brand.setId(1L);
 		//When
-		when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
-		Brand idReturn = service.getById(1);
+		when(brandRepository.findById(1L)).thenReturn(Optional.of(brand));
+		Brand idReturn = service.getById(1L);
 		//Then
 		assertEquals(1, idReturn.getId());
 		assertEquals("OPPO", idReturn.getName());
@@ -75,10 +75,10 @@ public class BrandServiceTest {
 		//Given 
 		
 		//When
-		when(brandRepository.findById(2)).thenReturn(Optional.empty());
+		when(brandRepository.findById(2L)).thenReturn(Optional.empty());
 		
 		//Then
-		assertThatThrownBy(()->service.getById(2)).isInstanceOf(ResourceNotFoundException.class);
+		assertThatThrownBy(()->service.getById(2L)).isInstanceOf(ResourceNotFoundException.class);
 								
 		
 	}
