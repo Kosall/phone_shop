@@ -1,7 +1,7 @@
 package org.kosal.phoneshop.kosal1_phoneshop.entities;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +24,7 @@ public class ProductImportHistory {
 	private Long importId;
 	@Column(name="date_import")
 	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime importDate;
+	private LocalDate importDate;
 	@Column(name="imported_unit")
 	private Integer importUnit;
 	@Column(name="import_price")

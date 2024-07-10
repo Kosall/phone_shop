@@ -23,7 +23,7 @@ public class SaleDetail {
 	@Column(name="sale_Detail_id")
 	private Long id;
 	@Column(name="sold_date")
-	private LocalDate soldDate;
+	private LocalDate saleDate;
 	@ManyToOne
 	@JoinColumn(name="sale_id")
 	private Sale sale;

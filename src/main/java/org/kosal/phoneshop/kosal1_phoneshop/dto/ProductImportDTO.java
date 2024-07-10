@@ -1,7 +1,7 @@
 package org.kosal.phoneshop.kosal1_phoneshop.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
@@ -17,6 +17,6 @@ public class ProductImportDTO {
 	@DecimalMin(value="0.00001",message = "price must be greater than 0")
 	private BigDecimal importPrice;
 	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime importDate;
+	private LocalDate importDate;
 
 }

@@ -113,7 +113,7 @@ public class ProductServiceImpl implements ProductService {
 								throw new  ApiException(HttpStatus.BAD_REQUEST,"Import Unit must be greater than 0");
 							}
 							Cell cellImportDate = row.getCell(cellIndex++);
-							LocalDateTime importDate = cellImportDate.getLocalDateTimeCellValue();
+							LocalDateTime importDate=cellImportDate.getLocalDateTimeCellValue();
 							Product product=getByModelIdAndColorId(modelId, colorId);
 							Integer availableUnit=0;
 							if(product.getAvailabeUnit()!=0) {
@@ -122,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
 							product.setAvailabeUnit(availableUnit+importUnit);
 							productRepository.save(product);
 							ProductImportHistory importHistory=new ProductImportHistory();
-							importHistory.setImportDate(importDate);
+							importHistory.setImportDate(importDate.toLocalDate());
 							importHistory.setImportUnit(importUnit);
 							importHistory.setImportPrice(BigDecimal.valueOf(importPrice));
 							importHistory.setProduct(product);
