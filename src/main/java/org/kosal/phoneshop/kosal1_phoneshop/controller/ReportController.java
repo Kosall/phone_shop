@@ -3,6 +3,7 @@ package org.kosal.phoneshop.kosal1_phoneshop.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.kosal.phoneshop.kosal1_phoneshop.dto.ExpenseReportDTO;
 import org.kosal.phoneshop.kosal1_phoneshop.dto.ProductReportDTO;
 import org.kosal.phoneshop.kosal1_phoneshop.service1.ReportService;
 import org.kosal.phoneshop.kosal1_phoneshop.service1.projection.ProductSold;
@@ -34,6 +35,11 @@ public class ReportController {
 	public ResponseEntity<?>productSoldV2(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate")LocalDate startDate,@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate){
 		List<ProductReportDTO> productSolds = reportService.getProductReport(startDate, endDate);
 		return ResponseEntity.ok(productSolds);
+	}
+	@GetMapping("expense/{startDate}/{endDate}")
+	public ResponseEntity<?>expenseReport(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate")LocalDate startDate,@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate){
+			List<ExpenseReportDTO> expenseReport = reportService.getExpenseReport(startDate, endDate);
+		return ResponseEntity.ok(expenseReport);
 	}
 		
 			
