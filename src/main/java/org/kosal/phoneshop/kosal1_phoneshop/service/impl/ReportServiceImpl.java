@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.hibernate.engine.internal.Collections;
 import org.kosal.phoneshop.kosal1_phoneshop.BrandSpecification.ImportHistoryFilter;
 import org.kosal.phoneshop.kosal1_phoneshop.BrandSpecification.ImportHistorySpec;
 import org.kosal.phoneshop.kosal1_phoneshop.BrandSpecification.SaleDetailFilter;
@@ -131,7 +131,10 @@ public class ReportServiceImpl implements ReportService  {
 			expenseDTO.setTotalunit(unit);
 			expenseDTO.setTotalAmount(BigDecimal.valueOf(totalAmount));
 			expenseDTOs.add(expenseDTO);
+			
+		
 		}
+	//java.util.Collections.sort(null, null);
 		return expenseDTOs;
 	}
 
