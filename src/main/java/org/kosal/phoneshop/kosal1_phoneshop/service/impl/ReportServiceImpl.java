@@ -3,6 +3,7 @@ package org.kosal.phoneshop.kosal1_phoneshop.service.impl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -98,12 +99,12 @@ public class ReportServiceImpl implements ReportService  {
 				historyFilter.setEndDate(endDate);
 		ImportHistorySpec historySpec =new ImportHistorySpec(historyFilter);
 		List<ProductImportHistory> importHistories = productImportHistoryRepository.findAll(historySpec);
-		Set<Long> productIds = importHistories.stream()
+		Set<Long> productId = importHistories.stream()
 						.map(pi->pi.getProduct().getId())
 						.collect(Collectors.toSet());
-		List<Product> products = productRepository.findAllById(productIds);
+		List<Product> product1 = productRepository.findAllById(productId);
 		
-		Map<Long, Product> productMap = products.stream()
+		Map<Long, Product> productMap = product1.stream()
 					.collect(Collectors.toMap(Product::getId,Function.identity()));
 		
 				
@@ -132,6 +133,7 @@ public class ReportServiceImpl implements ReportService  {
 			expenseDTO.setTotalAmount(BigDecimal.valueOf(totalAmount));
 			expenseDTOs.add(expenseDTO);
 		}
+		Collections.sort(expenseDTOs,(a,b)->(int)(a.getProductId() - b.getProductId()));
 		return expenseDTOs;
 	}
 
