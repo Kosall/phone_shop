@@ -8,7 +8,7 @@ import org.kosal.phoneshop.kosal1_phoneshop.entities.Product;
 import org.kosal.phoneshop.kosal1_phoneshop.entities.ProductImportHistory;
 
 public class ReportTestHelper {
-	private static Product product=Product.builder()
+	/*private static Product product=Product.builder()
 			.id(1l)
 			.name("Iphone 12 pro")
 			.build();
@@ -49,6 +49,6 @@ public class ReportTestHelper {
 		
 		
 		return List.of(importHistory,importHistory1,importHistory2);
-	}
+	}*/
 
 }
