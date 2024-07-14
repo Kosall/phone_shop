@@ -19,9 +19,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+//@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Table(name="import_product_histories")
 public class ProductImportHistory {
 	@Id
