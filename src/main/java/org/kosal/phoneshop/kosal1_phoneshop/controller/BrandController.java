@@ -60,13 +60,17 @@ public class BrandController {
 
 	}
 
+	/*@GetMapping
+	public ResponseEntity<?> getBrands() {
+		
+		List<BrandDTO> lists = brandService.getBrands()
+				.stream().map(br -> BrandMapper.INSTANCE.toDTO(br))
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(lists);
+	}
+
 	/*
-	 * @GetMapping public ResponseEntity<?> getBrands(){ List<BrandDTO> lists =
-	 * brandService.getBrands() .stream() .map(br->BrandMapper.INSTANCE.toDTO(br))
-	 * .collect(Collectors.toList());
-	 * 
-	 * return ResponseEntity.ok(lists); }
-	 * 
 	 * 
 	 * @GetMapping("filter") public ResponeEntity<?>getBrands(@RequestParam("name")
 	 * String params){ List<BrandDTO> lists = brandService.getBrands(names)
@@ -80,24 +84,21 @@ public class BrandController {
 	@GetMapping
 	public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params) {
 		Page<Brand> pages = brandService.getBrands(params);
-		PageDTO dto =new PageDTO(pages);
-		/*List<BrandDTO> collect = brandService.getBrands(params)
-				.stream()
-				.map(br -> BrandMapper.INSTANCE.toDTO(br))
-				.collect(Collectors.toList());*/
+		PageDTO dto = new PageDTO(pages);
+		/*
+		 * List<BrandDTO> collect = brandService.getBrands(params) .stream() .map(br ->
+		 * BrandMapper.INSTANCE.toDTO(br)) .collect(Collectors.toList());
+		 */
 
 		return ResponseEntity.ok(dto);
 
-
 	}
+
 	@GetMapping("{id}/models")
 	public ResponseEntity<?> getModelByBrand(@PathVariable Long id) {
-				List<Model> models =service.getModelsByBrandId(id);
-				List<ModelDTO> list = models.stream()
-						.map(mapper::toModelDTO)
-						.toList();
-						
-		
+		List<Model> models = service.getModelsByBrandId(id);
+		List<ModelDTO> list = models.stream().map(mapper::toModelDTO).toList();
+
 		return ResponseEntity.ok(list);
 	}
 
