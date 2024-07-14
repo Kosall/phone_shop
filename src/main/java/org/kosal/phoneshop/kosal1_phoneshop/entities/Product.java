@@ -17,7 +17,7 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+//@Builder
 @Entity
 @Table(name="products",uniqueConstraints = {@UniqueConstraint(columnNames = {"model_id","color_id"})})
 public class Product {
