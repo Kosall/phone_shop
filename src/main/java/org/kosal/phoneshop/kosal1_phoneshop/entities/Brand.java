@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.Constraint;
 
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Brand {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="brand_id")
 	private Long id;
+	
 	@Column(name="brand_name")
 	private String name;
 	

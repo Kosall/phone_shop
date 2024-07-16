@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/dbnary
     username: nary02
-    password: nary02
+    password: nary01
   jpa:
     properties:
      hibernate:
@@ -15,7 +15,7 @@ spring:
   liquibase:
        change-log:
           classpath:db/changelog/db_changelog-master.yaml
-       enabled: false
+       enabled: true
 server:
   port: 8085
  
