@@ -16,6 +16,7 @@ import org.kosal.phoneshop.kosal1_phoneshop.service1.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,7 +37,8 @@ public class BrandController {
 	private final BrandService brandService;
 	private final ModelService service;
 	private final ModelEntityMapper mapper;
-
+	
+	@PreAuthorize("hasAuthority('brand:write')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody BrandDTO dto) {
 		Brand brand = BrandMapper.INSTANCE.toBrand(dto);
@@ -81,6 +83,7 @@ public class BrandController {
 	 * 
 	 * 
 	 */
+	@PreAuthorize("hasAuthority('brand:read')")
 	@GetMapping
 	public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params) {
 		Page<Brand> pages = brandService.getBrands(params);
