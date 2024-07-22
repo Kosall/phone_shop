@@ -3,6 +3,8 @@ package org.kosal.phoneshop.kosal1_phoneshop.security;
 import java.util.Collections;
 import static org.kosal.phoneshop.kosal1_phoneshop.security.PermissionEnum.*;
 
+import org.kosal.phoneshop.kosal1_phoneshop.security.JWT.JWTfilter;
+import org.kosal.phoneshop.kosal1_phoneshop.security.JWT.TokenVerifyFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +31,8 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
+		.addFilter(new JWTfilter(authenticationManager()))
+		.addFilterAfter(new TokenVerifyFilter(),JWTfilter.class)
 		.authorizeHttpRequests()
 		.antMatchers("/","index.html","cs/**","js/**").permitAll()
 		//.antMatchers("/models").hasRole(RoleEnum.SALE.name())
@@ -37,9 +41,8 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 		//.antMatchers(HttpMethod.POST,"/brands").hasAnyAuthority(BRAND_WRITE.getDescription())
 		//.antMatchers(HttpMethod.GET,"/brands").hasAnyAuthority(BRAND_READ.getDescription())
 		.anyRequest()
-		.authenticated()
-		.and()
-		.httpBasic();
+		.authenticated();
+		
 	}
 	@Bean
 	@Override
