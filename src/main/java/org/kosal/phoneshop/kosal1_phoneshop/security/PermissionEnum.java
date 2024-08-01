@@ -9,8 +9,9 @@ import lombok.Getter;
 public enum PermissionEnum {
 	BRAND_READ("brand:read"),
 	BRAND_WRITE("brand:write"),
-	MODEL_WRITE("model:write"),
-	MODEL_READ("model:read");
+	MODEL_READ("model:read"),
+	MODEL_WRITE("model:write");
+	
 	private String description;
 	/*private PermissionEnum(String description) {
 		
