@@ -1,42 +1,45 @@
 package org.kosal.phoneshop.kosal1_phoneshop.security;
 
-import java.util.Collections;
-import static org.kosal.phoneshop.kosal1_phoneshop.security.PermissionEnum.*;
-
 import org.kosal.phoneshop.kosal1_phoneshop.security.JWT.JwtFilter;
 import org.kosal.phoneshop.kosal1_phoneshop.security.JWT.TokeVerifyFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true
+@EnableGlobalMethodSecurity(prePostEnabled = true,
+							securedEnabled = true, 
+							jsr250Enabled = true
 
-)
-public class SecurityConfigure extends WebSecurityConfigurerAdapter {
+							)
+public class SecurityConfigure // extends WebSecurityConfigurerAdapter
+{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UserDetailsService detailsService;
+	
+	private AuthenticationConfiguration authenticationConfiguration;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().addFilter(new JwtFilter(authenticationManager())).sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.addFilterAfter(new TokeVerifyFilter(), JwtFilter.class).authorizeHttpRequests()
+	@Bean
+	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+		http.csrf().disable()
+				.addFilter(new JwtFilter(authenticationManager(authenticationConfiguration)))// .sessionManagement()
+				.addFilterAfter(new TokeVerifyFilter(), JwtFilter.class)
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.authorizeHttpRequests()
 				.antMatchers("/", "index.html", "cs/**", "js/**").permitAll()
 				// .antMatchers("/models").hasRole(RoleEnum.SALE.name())
 				// .antMatchers("/brands").hasRole("SALE")
@@ -44,6 +47,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 				// .antMatchers(HttpMethod.POST,"/brands").hasAnyAuthority(BRAND_WRITE.getDescription())
 				// .antMatchers(HttpMethod.GET,"/brands").hasAnyAuthority(BRAND_READ.getDescription())
 				.anyRequest().authenticated();
+		return http.build();
 
 	}
 
@@ -60,11 +64,17 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 	 * UserDetailsService detailsService=new InMemoryUserDetailsManager(user,user2);
 	 * return detailsService; }
 	 */
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+	@Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
+
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(getAuthenticationProvider());
 	}
-	
+
 	@Bean
 	public AuthenticationProvider getAuthenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
