@@ -6,9 +6,10 @@ import static org.mockito.ArgumentMatchers.anyList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class GeneralUtilTest {
-	@Test
+	//@Test
 	public void testToIntegerList() {
 		//Given
 		List<String>name=List.of("Data","Thida","Socheata");
@@ -34,6 +35,20 @@ public class GeneralUtilTest {
 		assertEquals(92, evenNumber.get(4));
 		
 		
+	}
+	@Test
+	public void getEncode() {
+		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		String encode = encoder.encode("nita2130088777");
+		String encode2 = encoder.encode("bophatep01");
+		String encode3 = encoder.encode("tepty0117722");
+		/*System.out.println("-----1-----");
+		System.err.println(encode);
+		System.out.println("-----2-----");
+		System.out.println(encode2);
+		System.out.println("-----3-----");
+		*/
+		System.err.println(encode3);
 	}
 
 }
