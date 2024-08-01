@@ -45,14 +45,15 @@ public class BrandController {
 		brand = brandService.create(brand);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toDTO(brand));
 	}
-
+	
+	//@PreAuthorize("hasAuthority('brand:read')")
 	@GetMapping("{id}")
 	public ResponseEntity<?> getOneBrand(@PathVariable Long id) {
 
 		Brand brand = brandService.getById(id);
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toDTO(brand));
 	}
-
+	@PreAuthorize("hasAuthority('brand:write')")
 	@PutMapping("{id}")
 	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody BrandDTO dto) {
 		Brand brand = BrandMapper.INSTANCE.toBrand(dto);
