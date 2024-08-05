@@ -39,7 +39,7 @@ public class TokeVerifyFilter extends OncePerRequestFilter{
 					return;
 					
 				}
-				String keygend="l988877736622991002992118828229888777";
+				String keygend="l9888777366229910029921188282298887771231";
 				String token = header.replace("Bearer ", "");
 				/*
 				 * Jwts.parserBuilder() .setSigningKey(Keys.hmacShaKeyFor(keygend.getBytes()))
@@ -53,10 +53,10 @@ public class TokeVerifyFilter extends OncePerRequestFilter{
 							 Claims body = claimsJws.getBody();
 							 String username = body.getSubject();
 							List<Map<String, String>> authorities=(List<Map<String, String>>) body.get("authorities");
-							Set<SimpleGrantedAuthority> grantedAuthority = authorities.stream()
+							Set<SimpleGrantedAuthority> grantedAuthorities = authorities.stream()
 										.map(x->new SimpleGrantedAuthority(x.get("authority")))
 										.collect(Collectors.toSet());
-							Authentication authentication =new UsernamePasswordAuthenticationToken(username,null, grantedAuthority);
+							Authentication authentication =new UsernamePasswordAuthenticationToken(username,null, grantedAuthorities);
 							SecurityContextHolder.getContext().setAuthentication(authentication);
 							filterChain.doFilter(request, response);
 				}
