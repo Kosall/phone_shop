@@ -5,6 +5,7 @@ import org.kosal.phoneshop.kosal1_phoneshop.security.JWT.TokeVerifyFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,7 +30,7 @@ public class SecurityConfigure // extends WebSecurityConfigurerAdapter
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UserDetailsService detailsService;
-	
+	@Autowired
 	private AuthenticationConfiguration authenticationConfiguration;
 
 	@Bean
@@ -44,8 +45,11 @@ public class SecurityConfigure // extends WebSecurityConfigurerAdapter
 				// .antMatchers("/models").hasRole(RoleEnum.SALE.name())
 				// .antMatchers("/brands").hasRole("SALE")
 				// .antMatchers(HttpMethod.POST,"/brand").hasAnyAuthority("brand:write")
-				// .antMatchers(HttpMethod.POST,"/brands").hasAnyAuthority(BRAND_WRITE.getDescription())
-				// .antMatchers(HttpMethod.GET,"/brands").hasAnyAuthority(BRAND_READ.getDescription())
+				 //.antMatchers(HttpMethod.POST,"/brands").hasAuthority(PermissionEnum.BRAND_WRITE.getDescription())
+				 //.anyRequest().authenticated()
+				 //.antMatchers(HttpMethod.GET,"/brands").hasAuthority(PermissionEnum.BRAND_READ.getDescription())
+				 //.anyRequest().authenticated()
+				//.antMatchers(HttpMethod.PUT, "/brands/**").hasAuthority(PermissionEnum.BRAND_WRITE.getDescription())
 				.anyRequest().authenticated();
 		return http.build();
 
@@ -72,11 +76,11 @@ public class SecurityConfigure // extends WebSecurityConfigurerAdapter
 	}
 
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(getAuthenticationProvider());
+		auth.authenticationProvider(getDaoAuthenticationProvider());
 	}
 
 	@Bean
-	public AuthenticationProvider getAuthenticationProvider() {
+	public DaoAuthenticationProvider getDaoAuthenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setUserDetailsService(detailsService);
 		provider.setPasswordEncoder(passwordEncoder);
